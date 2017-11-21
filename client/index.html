@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bhinfinix Store</title>
+    <meta name="description" content="My template">
+
+    <!-- style -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+      <link rel="stylesheet" href="./assets/style/style.css">
+</head>
+<body>
+  <div id="bnx">
+    <div class="ui fluid container">
+
+      <!-- Store Info -->
+      <div class="ui column row grid centered header-info">
+        <div class="thirteen wide column header-list">
+          <div class="ui horizontal stackable list">
+            <div class="item">
+              <i class="warning icon"></i>
+              Pusat Bantuan
+            </div>
+            <div class="item">
+              <i class="call icon"></i>
+              +6283728736452
+            </div>
+            <div class="item">
+              <i class="mail icon"></i>
+              support@store.com
+            </div>
+          </div>
+          <div class="ui horizontal list right floated">
+            <div class="item">
+              <i class="map pin icon"></i>
+              Bandung, Indonesia.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui two column stackable grid centered">
+        <div class="three wide column middle aligned">
+          <img class="logo-img" src="./assets/img/logo.png" alt="logo picture">
+        </div>
+        <div class="eight wide column middle aligned">
+          <div class="ui fluid action left icon large input">
+            <i class="search icon"></i>
+            <input placeholder="Search..." type="text">
+            <div class="ui primary button">Cari Produk</div>
+          </div>
+        </div>
+        <div class="three wide column middle aligned">
+          <div class="ui button right">
+            Daftar
+          </div>
+          <div class="ui primary button" id="login-modal">
+            Login
+          </div>
+        </div>
+      </div>
+
+      <!-- navbar -->
+      <div class="ui centered column row grid top-space">
+        <div class="fourteen wide column">
+          <div class="ui large borderless stackable menu">
+            <div class="ui compact dropdown link item">
+              <i class="sidebar icon"></i>
+              <div class="menu">
+                <div class="header">Kategori</div>
+                <div class="item">
+                  <i class="dropdown icon"></i>
+                  <span class="text">Hijacket</span>
+                  <div class="menu">
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                  </div>
+                </div>
+                <div class="item">
+                  <i class="dropdown icon"></i>
+                  <span class="text">Pilot</span>
+                  <div class="menu">
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                  </div>
+                </div>
+                <div class="item">
+                  <i class="dropdown icon"></i>
+                  <span class="text">Premium Basic</span>
+                  <div class="menu">
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                  </div>
+                </div>
+                <div class="item">
+                  <i class="dropdown icon"></i>
+                  <span class="text">Hoodie Combi</span>
+                  <div class="menu">
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                  </div>
+                </div>
+                <div class="item">
+                  <i class="dropdown icon"></i>
+                  <span class="text">Sweater</span>
+                  <div class="menu">
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                  </div>
+                </div>
+                <div class="item">
+                  <i class="dropdown icon"></i>
+                  <span class="text">Synth Leather</span>
+                  <div class="menu">
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                    <div class="header">Sample</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="active item">BERANDA</a>
+            <a class="item">PROMO</a>
+            <a class="item">PRODUK BARU</a>
+            <a class="item">BELANJA</a>
+            <a class="right item" v-on:click="modalCart">
+              <i class="shopping bag icon"></i>
+              {{ counterCart }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slideshow -->
+      <div class="ui column row grid centered">
+        <div class="fourteen wide column image middle aligned">
+          <ul class="rslides">
+            <li><img src="./assets/img/slide/slide1.jpg" alt=""></li>
+            <li><img src="./assets/img/slide/slide2.jpg" alt=""></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ads -->
+      <div class="ui centered row grid">
+        <div class="fourteen wide column">
+          <img style="width:100%" src="./assets/img/ads.jpg" alt="">
+        </div>
+      </div>
+
+      <!-- Product -->
+      <div class="ui centered row grid">
+        <div class="fourteen wide column">
+          <h2 class="ui dividing header">Produk<a class="anchor" id="states"></a></h2>
+          <div class="ui five cards">
+            <a class="card" id="add-cart" v-for="product in products">
+              <div class="image">
+                <img v-bind:src="product.picture">
+              </div>
+              <div class="content">
+                <div class="header" style="text-align:center;">{{ product.name }}</div>
+                <div class="description" style="text-align:center;">
+                  {{ product.dec }}
+                  <br>
+                  <h3 class="ui blue">Rp. {{ product.price }}</h3>
+                </div>
+              </div>
+              <div id="add-cart" v-bind:value="product._id" class="ui bottom primary attached button" v-on:click="modalproduct(product)">
+                <i class="add to cart icon"></i>
+                Beli
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="ui grid centered">
+      <div class="column grey email-sub middle aligned">
+        <h2 style="margin-top: 30px;" class="header">Pingin Tau Penawaran Eksklusif Lainnya ?</h2>
+        <div class="ui action large input">
+          <input placeholder="Berlangganan Info Terbaru..." type="text">
+          <button class="ui button primary">Berlanganan</button>
+        </div>
+      </div>
+    </div>
+    <div class="ui inverted vertical footer segment">
+      <div class="ui center aligned container">
+        <div class="ui stackable inverted centered divided grid">
+          <div class="three wide column center aligned">
+            <h4 class="ui inverted header">Bhinfinix Store</h4>
+            <div class="ui inverted link list">
+              <a href="#" class="item">Tentang Kami</a>
+              <a href="#" class="item">Cara Pemesanan</a>
+              <a href="#" class="item">Hubungi Kami</a>
+              <a href="#" class="item">Konfirmasi Pembayaran</a>
+            </div>
+          </div>
+          <div class="three wide column center aligned">
+            <h4 class="ui inverted header">Porduk</h4>
+            <div class="ui inverted link list">
+              <a href="#" class="item">Terlaris</a>
+              <a href="#" class="item">Terbaru</a>
+              <a href="#" class="item">Promo</a>
+              <a href="#" class="item">Pupoler</a>
+            </div>
+          </div>
+          <div class="three wide column center aligned">
+            <h4 class="ui inverted header">Member Area</h4>
+            <div class="ui inverted link list">
+              <a href="#" class="item">Login</a>
+              <a href="#" class="item">Profile</a>
+              <a href="#" class="item">Riwayat Transaksi</a>
+            </div>
+          </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <img style="height:50px;width:auto;" class="ui centered mini image" src="./assets/img/logo.png" alt="logo picture">
+        <div class="ui horizontal inverted small divided link list">
+          <a class="item" href="#">Site Map</a>
+          <a class="item" href="#">Contact Us</a>
+          <a class="item" href="#">Terms and Conditions</a>
+          <a class="item" href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal -->
+    <div class="ui tiny modal">
+      <div style="margin:20px 0 20px 0;" class="ui centered grid">
+
+        <div class="thirteen wide column">
+          <h2 class="ui blue image header">
+            <div class="content">
+              Log-in ke Akun Anda
+            </div>
+          </h2>
+          <div class="field">
+            <div class="ui left icon fluid input">
+              <i class="user icon"></i>
+              <input name="email" placeholder="E-mail address" type="text">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon fluid input">
+              <i class="lock icon"></i>
+              <input name="password" placeholder="Password" type="password">
+            </div>
+          </div>
+          <br>
+          <div class="ui fluid large teal submit button">Login</div><br>
+          <div class="ui fluid large facebook button">
+            <i class="facebook icon"></i>
+            Login dengan Facebook
+          </div>
+
+          <div class="ui message">
+            Belum Punya Akun? <a href="#">Daftar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui small modal cart">
+      <div style="padding:20px;" class="ui centered grid">
+
+        <div class="fiveteen wide column">
+          <h2 class="ui blue image header">
+            <div class="content">
+              Keranjang Belanja
+            </div>
+          </h2>
+          <div class="field">
+            <table class="ui compact celled definition table">
+              <thead class="full-width">
+                <tr>
+                  <th></th>
+                  <th>Harga</th>
+                  <th>Jumlah</th>
+                  <th>Sub Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="product in cart" v-if="cart.length > 0">
+                  <td>{{ product.name }} {{ product.dec }}</td>
+                  <td>{{ product.price }}</td>
+                  <td>{{ product.amount }}</td>
+                  <td>{{ product.subtotal }}</td>
+                  <td class="ui negative button">Hapus</td>
+                </tr>
+                <tr v-else>
+                  <td></td>
+                  <td colspan="3"><h4 style="text-align:center;">Keranjang Kosong</h4></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tfoot class="full-width">
+                <tr>
+                  <th></th>
+                  <th colspan="3" style="text-align:right;">
+                    <h3>Total Akhir</h3>
+                  </th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <th colspan="5">
+                    <div class="ui primary ok button right floated" v-on:click="checkout">
+                      <i class="payment icon"></i>Pembayaran
+                    </div>
+                    <div class="ui basic cancel button right floated">
+                      <i class="add to cart icon"></i>Beli Barang Lain
+                    </div>
+                  </th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="ui basic mini modal">
+      <div class="ui icon header">
+        <i class="archive icon"></i>
+        Tambahkan Ke Keranjang ?
+      </div>
+      <div class="actions">
+        <div class="ui red cancel inverted button left floated">
+          <i class="remove icon"></i>
+          Tidak
+        </div>
+        <div class="ui green ok inverted button" v-on:click='saveToCart'>
+          <i class="checkmark icon"></i>
+          Ya
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- scripts -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="./assets/js/responsiveslides.min.js"></script>
+<script src="./assets/js/script.js"></script>
+<script src="./assets/js/vue.js"></script>
+</html>

@@ -1,0 +1,81 @@
+.top-space {
+  margin-top: 0;
+}
+
+.bottom-space {
+  margin-bottom: 0;
+}
+
+.logo-img {
+  vertical-align: middle;
+  width: 100%;
+}
+
+.add-padding {
+  padding: 0px 78571429em 0px .92857143em;
+}
+
+.email-sub {
+  margin-top: 50px;
+  height: 200px;
+}
+
+.menu-search {
+    height: 80px;
+}
+
+.header-info {
+  background: #ddd;
+  height: 50px;
+}
+
+.header-list {
+  margin-top: 5px;
+}
+
+div.images {
+  position: relative;
+  overflow: hidden;
+}
+
+div.images img{
+  position: absolute;
+  height: 100%;
+  margin: auto;
+}
+
+div.leftside img {
+  width:100%;
+}
+
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+  }
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: 0;
+  }
