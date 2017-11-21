@@ -2,7 +2,7 @@ const Transaction = require('../models/transactionModel')
 
 let findAll = (req, res) => {
   Transaction.find()
-  .populate('products')
+  .populate('list_products')
   .then(trans => res.send(trans))
   .catch(err => res.status(500).send(err))
 }
@@ -10,10 +10,12 @@ let findAll = (req, res) => {
 let create = (req, res) => {
   let transaction = new Transaction({
     customer_id : req.body.customer_id,
-    products : req.body.products,
-    total : req.body.total
+    list_products : req.body.list_products,
+    qty : req.body.qty,
+    total_price : req.body.total_price
   })
 
+  console.log(transaction);
   transaction.save()
   .then(transaction => {
     res.send(transaction)

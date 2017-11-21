@@ -4,7 +4,9 @@ var app = new Vue({
     products: '',
     temp: '',
     cart: [],
-    counterCart: 0
+    counterCart: 0,
+    totalCart: '',
+    history: []
   },
   methods: {
     modalproduct: function (input) {
@@ -22,20 +24,39 @@ var app = new Vue({
       var elementPos = this.cart.map(function(x) {return x._id; }).indexOf(this.temp._id);
       var objectFound = this.cart[elementPos];
       if(elementPos == -1){
-        console.log('baru');
-        this.temp.amount = 1
-        this.temp.subtotal = this.temp.amount * this.temp.price
+        this.temp.qty = 1
+        this.temp.subtotal = this.temp.qty * this.temp.price
         this.cart.push(this.temp);
         this.counterCart++
       }else{
-        this.temp.amount = objectFound.amount + 1
-        this.temp.subtotal = this.temp.amount * this.temp.price
+        this.temp.qty = objectFound.qty + 1
+        this.temp.subtotal = this.temp.qty * this.temp.price
         this.cart.splice(elementPos, 1, this.temp)
-        console.log('lama');
         this.counterCart++
       }
-      this.cart.forEach(c => {
-        console.log(c);
+      var total = 0;
+      this.cart.forEach(p => {
+        total += p.subtotal
+      })
+      this.totalCart = total
+    },
+    checkout: function() {
+      var trans_detail = {
+        customer_id : '',
+        list_products : Object.entries(this.cart).map(([key, value]) => {
+          return value._id
+        }),
+        qty : Object.entries(this.cart).map(([key, value]) => {
+          return {productId : value._id, qty : value.qty}
+        }),
+        total_price : this.totalCart
+      }
+      axios.post('http://localhost:3000/api/transactions', trans_detail)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
       })
     }
   },
