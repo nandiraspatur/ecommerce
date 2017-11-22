@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Bhinfinix Store</title>
-    <meta name="description" content="My template">
+    <meta name="description" content="Bhinfinix Store">
 
     <!-- style -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
@@ -394,12 +394,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="detail in detailTrans" v-if="cart.length > 0">
+                <tr v-for="detail in detailTrans" v-if="detailTrans.length > 0">
                   <td>{{ detail.name }} {{ detail.dec }}</td>
                   <td>{{ detail.price }}</td>
                   <td>{{ detail.qty }}</td>
                   <td>{{ detail.subtotal }}</td>
-                  <td class="ui negative button fluid" style="text-align:center;" v-on:click="deleteCart(product._id)">Hapus</td>
                 </tr>
                 <tr v-else>
                   <td></td>

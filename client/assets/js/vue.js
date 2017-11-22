@@ -89,11 +89,12 @@ var app = new Vue({
       }
       this.history.push(trans_detail)
       if(trans_detail.total_price > 0){
-        axios.post('http://localhost:3000/api/transactions', trans_detail)
+        axios.post('http://api.nandiraspatur.tk/transactions', trans_detail)
         .then(response => {
           $('.modal.cart')
           .modal('hide')
           ;
+          console.log(response);
         })
         .catch(err => {
           console.error(err);
@@ -103,7 +104,7 @@ var app = new Vue({
       $('.modal.cart')
       .modal('hide')
       ;
-
+      this.cart = []
     },
     deleteCart: function(input) {
       var elementPos = this.cart.map(function(x) {return x._id; }).indexOf(input);
@@ -118,11 +119,15 @@ var app = new Vue({
       }
     },
     detailProduct: function(input) {
+      $('.small.modal.detail')
+        .modal('show')
+      ;
+
       this.detailTrans = input
     }
   },
   created: function () {
-    axios.get('http://nandiraspatur.tk/api/products')
+    axios.get('http://api.nandiraspatur.tk/products')
     .then(response => {
       this.products = response.data
     })
@@ -130,7 +135,7 @@ var app = new Vue({
       console.err(error);
     })
 
-    axios.get('http://nandiraspatur.tk/api/transactions')
+    axios.get('http://api.nandiraspatur.tk/transactions')
     .then(response => {
       this.history = response.data
     })
