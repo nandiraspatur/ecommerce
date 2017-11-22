@@ -29,9 +29,9 @@ var app = new Vue({
         this.cart.push(this.temp);
         this.counterCart++
       }else{
-        this.temp.qty = objectFound.qty + 1
-        this.temp.subtotal = this.temp.qty * this.temp.price
-        this.cart.splice(elementPos, 1, this.temp)
+        objectFound.qty += 1
+        objectFound.subtotal = objectFound.qty * objectFound.price
+        // this.cart.splice(elementPos, 1, this.temp)
         this.counterCart++
       }
       var total = 0;
@@ -58,6 +58,18 @@ var app = new Vue({
       .catch(err => {
         console.error(err);
       })
+    },
+    deleteCart: function(input) {
+      var elementPos = this.cart.map(function(x) {return x._id; }).indexOf(input);
+      if(this.cart[elementPos].qty > 1){
+        this.cart[elementPos].qty -=1
+        this.totalCart -= this.cart[elementPos].price
+        this.counterCart--
+      }else{
+        this.totalCart -= this.cart[elementPos].price
+        this.cart.splice(elementPos, 1)
+        this.counterCart--
+      }
     }
   },
   created: function () {

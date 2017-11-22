@@ -15,7 +15,6 @@ let create = (req, res) => {
     total_price : req.body.total_price
   })
 
-  console.log(transaction);
   transaction.save()
   .then(transaction => {
     res.send(transaction)
