@@ -1,12 +1,6 @@
 $('.ui.dropdown')
   .dropdown();
-
-$('#login-modal').click(function() {
-  $('.tiny.modal')
-  .modal('show')
-  ;
-})
-
+  
 // Slider Script
 $(function() {
   $(".rslides").responsiveSlides();

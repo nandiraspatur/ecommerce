@@ -7,6 +7,7 @@ var app = new Vue({
     counterCart: 0,
     totalCart: '',
     history: [],
+    detailTrans: '',
   },
   methods: {
     modalproduct: function (input) {
@@ -15,14 +16,27 @@ var app = new Vue({
       ;
       this.temp = input
     },
-    modalCart: function (input) {
+    modalCart: function () {
       $('.modal.cart')
+        .modal('show')
+      ;
+    },
+    modalLogin: function () {
+      $('.tiny.modal')
         .modal('show')
       ;
     },
     closeModalCart: function () {
       $('.modal.cart')
         .modal('hide')
+      ;
+    },
+    showCat: function() {
+
+    },
+    modalHistory: function() {
+      $('.ui.modal.history')
+        .modal('show')
       ;
     },
     saveToCart: function () {
@@ -45,8 +59,24 @@ var app = new Vue({
       })
       this.totalCart = total
     },
+    getIdTrans: function() {
+      var num = '1234567890'
+      var abj = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      var id = ''
+      for (var i = 0; i < 8; i++) {
+        if(i < 4){
+          var r = Math.floor(Math.random()*num.length)
+          id += num[r]
+        }else{
+          var r = Math.floor(Math.random()*abj.length)
+          id += abj[r]
+        }
+      }
+      return id
+    },
     checkout: function() {
       var trans_detail = {
+        id_trans: this.getIdTrans(),
         customer_id : '',
         list_products : Object.entries(this.cart).map(([key, value]) => {
           return value._id
@@ -54,12 +84,13 @@ var app = new Vue({
         qty : Object.entries(this.cart).map(([key, value]) => {
           return {productId : value._id, qty : value.qty}
         }),
-        total_price : this.totalCart
+        total_price : this.totalCart,
+        createdAt : Date.now
       }
+      this.history.push(trans_detail)
       if(trans_detail.total_price > 0){
         axios.post('http://localhost:3000/api/transactions', trans_detail)
         .then(response => {
-          console.log(response);
           $('.modal.cart')
           .modal('hide')
           ;
@@ -85,13 +116,23 @@ var app = new Vue({
         this.cart.splice(elementPos, 1)
         this.counterCart--
       }
+    },
+    detailProduct: function(input) {
+      this.detailTrans = input
     }
   },
   created: function () {
-    var self = this
     axios.get('http://localhost:3000/api/products')
-    .then(function (response) {
-      self.products = response.data
+    .then(response => {
+      this.products = response.data
+    })
+    .catch(function (error) {
+      console.err(error);
+    })
+
+    axios.get('http://localhost:3000/api/transactions')
+    .then(response => {
+      this.history = response.data
     })
     .catch(function (error) {
       console.err(error);

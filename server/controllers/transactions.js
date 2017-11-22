@@ -9,13 +9,15 @@ let findAll = (req, res) => {
 
 let create = (req, res) => {
   let transaction = new Transaction({
+    id_trans : req.body.id_trans,
     customer_id : req.body.customer_id,
     list_products : req.body.list_products,
     qty : req.body.qty,
     total_price : req.body.total_price
   })
 
-  transaction.save()
+  console.log(transaction);
+  Transaction.create(transaction)
   .then(transaction => {
     res.send(transaction)
   })
