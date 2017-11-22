@@ -94,6 +94,9 @@ var app = new Vue({
           $('.modal.cart')
           .modal('hide')
           ;
+          this.cart = []
+          this.counterCart = 0
+          this.totalCart = ''
           console.log(response);
         })
         .catch(err => {
@@ -104,7 +107,6 @@ var app = new Vue({
       $('.modal.cart')
       .modal('hide')
       ;
-      this.cart = []
     },
     deleteCart: function(input) {
       var elementPos = this.cart.map(function(x) {return x._id; }).indexOf(input);
