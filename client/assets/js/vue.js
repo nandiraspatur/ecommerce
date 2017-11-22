@@ -122,7 +122,7 @@ var app = new Vue({
     }
   },
   created: function () {
-    axios.get('http://localhost:3000/api/products')
+    axios.get('http://nandiraspatur.tk/api/products')
     .then(response => {
       this.products = response.data
     })
@@ -130,7 +130,7 @@ var app = new Vue({
       console.err(error);
     })
 
-    axios.get('http://localhost:3000/api/transactions')
+    axios.get('http://nandiraspatur.tk/api/transactions')
     .then(response => {
       this.history = response.data
     })
