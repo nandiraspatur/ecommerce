@@ -15,7 +15,7 @@
 
       <!-- Store Info -->
       <div class="ui column row grid centered header-info">
-        <div class="thirteen wide column header-list">
+        <div class="fourteen wide column header-list">
           <div class="ui horizontal stackable list">
             <div class="item">
               <i class="warning icon"></i>
@@ -29,8 +29,6 @@
               <i class="mail icon"></i>
               support@store.com
             </div>
-          </div>
-          <div class="ui horizontal list right floated">
             <div class="item">
               <i class="map pin icon"></i>
               Bandung, Indonesia.
@@ -64,7 +62,7 @@
       <div class="ui centered column row grid top-space">
         <div class="fourteen wide column">
           <div class="ui large borderless stackable menu">
-            <div class="ui compact dropdown link item">
+            <div class="ui compact dropdown link item" v-on:click="showCat">
               <i class="sidebar icon"></i>
               <div class="menu">
                 <div class="header">Kategori</div>
@@ -157,7 +155,7 @@
       <div class="ui centered row grid">
         <div class="fourteen wide column">
           <h2 class="ui dividing header">Produk<a class="anchor" id="states"></a></h2>
-          <div class="ui five cards">
+          <div class="ui five stackable cards">
             <a class="card" id="add-cart" v-for="product in products">
               <div class="image">
                 <img v-bind:src="product.picture">
@@ -313,7 +311,7 @@
                     <div class="ui primary ok button right floated" v-on:click="checkout">
                       <i class="payment icon"></i>Pembayaran
                     </div>
-                    <div class="ui basic cancel button right floated">
+                    <div class="ui basic cancel button right floated" v-on:click="closeModalCart">
                       <i class="add to cart icon"></i>Beli Barang Lain
                     </div>
                   </th>

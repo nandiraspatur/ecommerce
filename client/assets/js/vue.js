@@ -6,7 +6,7 @@ var app = new Vue({
     cart: [],
     counterCart: 0,
     totalCart: '',
-    history: []
+    history: [],
   },
   methods: {
     modalproduct: function (input) {
@@ -18,6 +18,11 @@ var app = new Vue({
     modalCart: function (input) {
       $('.modal.cart')
         .modal('show')
+      ;
+    },
+    closeModalCart: function () {
+      $('.modal.cart')
+        .modal('hide')
       ;
     },
     saveToCart: function () {
@@ -51,13 +56,23 @@ var app = new Vue({
         }),
         total_price : this.totalCart
       }
-      axios.post('http://localhost:3000/api/transactions', trans_detail)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => {
-        console.error(err);
-      })
+      if(trans_detail.total_price > 0){
+        axios.post('http://localhost:3000/api/transactions', trans_detail)
+        .then(response => {
+          console.log(response);
+          $('.modal.cart')
+          .modal('hide')
+          ;
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+
+      $('.modal.cart')
+      .modal('hide')
+      ;
+
     },
     deleteCart: function(input) {
       var elementPos = this.cart.map(function(x) {return x._id; }).indexOf(input);
