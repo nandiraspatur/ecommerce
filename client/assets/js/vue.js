@@ -89,7 +89,7 @@ var app = new Vue({
       }
       this.history.push(trans_detail)
       if(trans_detail.total_price > 0){
-        axios.post('http://api.nandiraspatur.tk/transactions', trans_detail)
+        axios.post('http://store.api.bhinfinix.com/transactions', trans_detail)
         .then(response => {
           $('.modal.cart')
           .modal('hide')
@@ -129,7 +129,7 @@ var app = new Vue({
     }
   },
   created: function () {
-    axios.get('http://api.nandiraspatur.tk/products')
+    axios.get('http://store.api.bhinfinix.com/products')
     .then(response => {
       this.products = response.data
     })
@@ -137,7 +137,7 @@ var app = new Vue({
       console.err(error);
     })
 
-    axios.get('http://api.nandiraspatur.tk/transactions')
+    axios.get('http://store.api.bhinfinix.com/transactions')
     .then(response => {
       this.history = response.data
     })
